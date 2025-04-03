@@ -1,65 +1,74 @@
-let loadingText = "Loading...";
 let font;
-let bgColor;
-let textColor;
-let colors = [
-  '#FFF4B1', '#FFD6E8', '#C3E8BD', '#AFCBFF', 
-  '#F6C1B0', '#E6E6FA', '#FAF0D7'
-];
+let colors = ['#FFF4B1', '#FFD6E8', '#C3E8BD', '#AFCBFF', '#F6C1B0', '#E6E6FA', '#FAF0D7'];
 let currentIndex = 0;
 let nextIndex = 1;
-let lerpAmount = 0;
-let mouseXPos, mouseYPos;
+let lerpAmt = 0;
+let textColor;
+let wordPoints = [];
+let loadingText = "Loading...";
+let loaded = false;
 
 function preload() {
-  font = loadFont('assets/PixelifySans-VariableFont_wght.ttf'); 
+  font = loadFont('assets/PixelifySans-VariableFont_wght.ttf');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  bgColor = color(colors[currentIndex]);
-  textColor = getContrastingColor(bgColor);
-  mouseXPos = width / 2;
-  mouseYPos = height / 2;
+  textFont(font);
+  textSize(80); // Make it big
+  textAlign(CENTER, CENTER);
+
+  // Pre-calculate the text points (for the collapsing effect)
+  wordPoints = font.textToPoints(loadingText, 0, 0, 80, {sampleFactor: 0.5, simplifyThreshold: 0});
+  
+  // Position the text at the center
+  wordPoints.forEach(point => {
+    point.x += width / 2;
+    point.y += height / 2;
+  });
+
+  // When the main sketch is ready, set loaded = true
+  window.addEventListener('sketchReady', () => {
+    loaded = true;
+    remove(); // remove this sketch
+  });
 }
 
 function draw() {
-  // Smoothly transition between colors
-  lerpAmount += 0.01; // Adjust speed of transition
-  if (lerpAmount >= 1) {
-    lerpAmount = 0;
+  if (loaded) return;
+
+  // Smoothly transition between pastel colors
+  lerpAmt += 0.01;
+  if (lerpAmt >= 1) {
+    lerpAmt = 0;
     currentIndex = nextIndex;
     nextIndex = (nextIndex + 1) % colors.length;
   }
 
-  bgColor = lerpColor(color(colors[currentIndex]), color(colors[nextIndex]), lerpAmount);
-  textColor = getContrastingColor(bgColor);
+  let bg = lerpColor(color(colors[currentIndex]), color(colors[nextIndex]), lerpAmt);
+  background(bg);
 
-  background(bgColor);
+  // Contrast color (black or white for visibility)
+  textColor = brightness(bg) > 60 ? color(30) : color(255);
+  stroke(textColor);
+  noFill();
+  strokeWeight(4); // Stroke width for the typography
 
-  // Draw loading text at mouse position
-  fill(textColor);
-  textFont(font);
-  textSize(50);
-  textAlign(CENTER, CENTER);
-  text(loadingText, mouseXPos, mouseYPos);
+  // Animate and draw the collapsing text following the mouse
+  let offsetX = mouseX - width / 2;
+  let offsetY = mouseY - height / 2;
+
+  wordPoints.forEach((point, i) => {
+    let distance = dist(mouseX, mouseY, point.x, point.y);
+    let factor = map(distance, 0, width / 3, 0.2, 1); // Collapsing effect
+    let xPos = point.x + offsetX * factor;
+    let yPos = point.y + offsetY * factor;
+
+    // Draw the point as part of the outline of the text
+    point(xPos, yPos);
+  });
 }
 
-// Update position based on mouse movement
-function mouseMoved() {
-  mouseXPos = mouseX;
-  mouseYPos = mouseY;
-}
-
-// Resize canvas on window resize
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-}
-
-// Function to determine a contrasting color
-function getContrastingColor(bg) {
-  let r = red(bg);
-  let g = green(bg);
-  let b = blue(bg);
-  return (r + g + b) / 3 > 127 ? color(30, 30, 30) : color(255);
 }
