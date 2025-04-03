@@ -5,7 +5,7 @@ let nextIndex = 1;
 let lerpAmt = 0;
 let textColor;
 let wordPoints = [];
-let loadingText = "Loading...";
+let loadingText = "Loading... I promise...";
 let loaded = false;
 
 function preload() {
@@ -27,10 +27,11 @@ function setup() {
     point.y += height / 2;
   });
 
-  // When the main sketch is ready, set loaded = true
+  // Listen for the event that the sketch is ready
   window.addEventListener('sketchReady', () => {
     loaded = true;
-    remove(); // remove this sketch
+    // Once the sketch is ready, remove the loading screen
+    remove(); // Removes the loading sketch
   });
 }
 
