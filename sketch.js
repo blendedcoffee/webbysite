@@ -1,5 +1,18 @@
 let font;
 
+function preload() {
+  font = loadFont('assets/PixelifySans-VariableFont_wght.ttf');
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  background('#F8F6EE');
+
+  // Tell the loading screen to go away
+  window.dispatchEvent(new Event('sketchReady'));
+}
+
+
 let words;
 let colors = [
   '#FFF4B1', '#FFD6E8', '#C3E8BD', '#AFCBFF', 
