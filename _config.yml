@@ -2,3 +2,6 @@ theme: minima
 title: Zara Hussain
 author: blendedcoffee
 description: Beginning Project
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
