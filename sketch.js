@@ -1,17 +1,15 @@
 let font;
 
 function preload() {
-  font = loadFont('assets/PixelifySans-VariableFont_wght.ttf');
+  font = loadFont('assets/PixelifySans-VariableFont_wght.ttf'); 
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background('#F8F6EE');
 
-  // Tell the loading screen to go away
+  // Now, dispatch the event to let the loading screen know the sketch is ready
   window.dispatchEvent(new Event('sketchReady'));
-}
-
 
 let words;
 let colors = [
