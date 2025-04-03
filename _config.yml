@@ -1,7 +1,4 @@
-theme: minima
-title: Zara Hussain
-author: blendedcoffee
-description: Beginning Project
+description: Art For the Technically Minded
 plugins:
   - jekyll-sitemap
   - jekyll-feed
