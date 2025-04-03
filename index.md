@@ -1,5 +1,5 @@
 ---
 layout: default
-Zara Hussain: Welcome to my blog
+Project I Guess: Home
+theme: null
 ---
-
