@@ -1,8 +1,8 @@
 pages["Media"] = {
-  setup() {},
   draw() {
-    fill(0);
+    background('#FFF4B1');
     textSize(50);
-    text("Calendar Page", width / 2 + 100, height / 2);
+    fill(0);
+    text("Media Page", width / 2, height / 2);
   }
 };
