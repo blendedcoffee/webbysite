@@ -8,55 +8,10 @@ function setup() {
   textAlign(CENTER, CENTER);
   textSize(24);
 
-  // Placeholder page draw functions
-  pages["Main"] = {
-    draw: function () {
-      fill(0);
-      text("Welcome to the Main Page!", width / 2, height / 2);
-    }
-  };
-
-  pages["Calendar"] = {
-    draw: function () {
-      fill(0);
-      text("This is the Calendar Page.", width / 2, height / 2);
-    }
-  };
-
-  pages["Posts"] = {
-    draw: function () {
-      fill(0);
-      text("This is the Posts Page.", width / 2, height / 2);
-    }
-  };
-
-  pages["Media"] = {
-    draw: function () {
-      fill(0);
-      text("Select a Media Subpage.", width / 2, height / 2);
-    }
-  };
-
-  pages["Films & TV"] = {
-    draw: function () {
-      fill(0);
-      text("This is the Films & TV Page.", width / 2, height / 2);
-    }
-  };
-
-  pages["Books"] = {
-    draw: function () {
-      fill(0);
-      text("This is the Books Page.", width / 2, height / 2);
-    }
-  };
-
-  pages["Music"] = {
-    draw: function () {
-      fill(0);
-      text("This is the Music Page.", width / 2, height / 2);
-    }
-  };
+  // Call the setup of the current page, if it has one
+  if (pages[currentPage] && pages[currentPage].setup) {
+    pages[currentPage].setup();
+  }
 }
 
 function draw() {
@@ -65,6 +20,7 @@ function draw() {
 
   drawNav(); // Always draw nav
 
+  // Call draw for the current page
   if (pages[currentPage] && pages[currentPage].draw) {
     pages[currentPage].draw();
   }
@@ -80,7 +36,7 @@ function drawNav() {
   noStroke();
   rect(0, 0, width, navHeight);
 
-  // Draw top-level menu items
+  // Top-level menu items
   for (let i = 0; i < menuItems.length; i++) {
     let label = menuItems[i];
     let x = i * itemWidth + itemWidth / 2;
@@ -89,7 +45,7 @@ function drawNav() {
     if (isMouseOver(x, y, itemWidth, navHeight)) {
       fill('#FFD6E8');
       if (mouseIsPressed) {
-        currentPage = label;
+        changePage(label);
       }
     } else {
       fill(0);
@@ -98,7 +54,7 @@ function drawNav() {
     text(label, x, y);
   }
 
-  // Draw subpages under "Media" if it's the current page
+  // Subpages for "Media"
   if (currentPage === "Media") {
     for (let i = 0; i < mediaSubpages.length; i++) {
       let label = mediaSubpages[i];
@@ -108,7 +64,7 @@ function drawNav() {
       if (isMouseOver(x, y, itemWidth, navHeight)) {
         fill('#F6C1B0');
         if (mouseIsPressed) {
-          currentPage = label;
+          changePage(label);
         }
       } else {
         fill(0);
@@ -122,6 +78,15 @@ function drawNav() {
 function isMouseOver(x, y, w, h) {
   return mouseX > x - w / 2 && mouseX < x + w / 2 &&
          mouseY > y - h / 2 && mouseY < y + h / 2;
+}
+
+function changePage(newPage) {
+  if (newPage !== currentPage) {
+    currentPage = newPage;
+    if (pages[currentPage] && pages[currentPage].setup) {
+      pages[currentPage].setup(); // Call setup again if switching pages
+    }
+  }
 }
 
 function windowResized() {
