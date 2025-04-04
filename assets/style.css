@@ -1,19 +1,29 @@
-html, body {
+/* Reset everything */
+* {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Ensure the body and HTML take the full screen */
+html, body {
   height: 100%;
   width: 100%;
+  overflow: hidden;
   background: #F8F6EE;
 }
 
+/* Make sure the canvas covers everything */
 canvas {
   display: block;
   position: absolute;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
+/* Fix the loading container */
 #loading-container {
   position: fixed;
   top: 0;
@@ -22,4 +32,9 @@ canvas {
   height: 100vh;
   z-index: 10;
   background: transparent;
+}
+
+/* Optional: Hide unintended headings */
+h1, h2, h3 {
+  display: none;
 }
