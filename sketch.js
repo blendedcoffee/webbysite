@@ -21,13 +21,15 @@ function setup() {
 
 function draw() {
   clear();
-  background('#F8F6EE');
+  background('#F8F6EE'); // Draw the background color
 
-  drawNav();
-
+  // Draw the current page content
   if (pages[currentPage] && pages[currentPage].draw) {
     pages[currentPage].draw();
   }
+
+  // Then, draw the navigation bar (on top of everything else)
+  drawNav();
 }
 
 function drawNav() {
@@ -42,6 +44,7 @@ function drawNav() {
   textFont(pixelFont);
   fill(0);
 
+  // Draw the main menu items
   for (let i = 0; i < menuItems.length; i++) {
     let label = menuItems[i];
     let x = i * itemWidth + itemWidth / 2;
@@ -59,6 +62,7 @@ function drawNav() {
     text(label, x, y);
   }
 
+  // Draw subpages for "Media" if that's the current page
   if (currentPage === "Media") {
     for (let i = 0; i < mediaSubpages.length; i++) {
       let label = mediaSubpages[i];
