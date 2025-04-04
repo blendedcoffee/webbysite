@@ -1,53 +1,22 @@
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zara Hussain</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Zara Hussain</title>
 
-  <!-- p5.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 
-  <!-- Load your loading logic first -->
-  <script src="loading.js" defer></script>
+    <!-- P5.js libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 
-  <!-- Your sketch code -->
-  <script src="sketch.js" defer></script>
-
-  <!-- Style to remove default margin and make canvas fullscreen -->
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: #F8F6EE;
-    }
-
-    canvas {
-      display: block;
-    }
-
-    /* Optional: fallback loading screen */
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      z-index: 1000;
-      font-family: 'PixelifySans', sans-serif;
-      font-size: 2rem;
-      color: #222;
-    }
-  </style>
-</head>
-<body>
-  <div id="loading-container"></div>
-
-  <script src="loading.js" defer></script>
-  <script src="sketch.js" defer></script>
-</body>
+    <!-- Loading screen first -->
+    <script src="loading.js" defer></script>
+    <!-- Main sketch -->
+    <script src="sketch.js" defer></script>
+  </head>
+  <body>
+    <!-- Fullscreen container for loading sketch -->
+    <div id="loading-container"></div>
+  </body>
 </html>
