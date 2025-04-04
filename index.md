@@ -6,16 +6,19 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- P5.js libraries -->
+    <!-- p5.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 
-    <!-- Loading screen first -->
-    <script src="loading.js" defer></script>
-    <!-- Main sketch -->
+    <!-- Core sketch logic (handles switching between pages) -->
     <script src="sketch.js" defer></script>
+
+    <!-- All individual page files -->
+    <script src="mainPage.js" defer></script>
+    <script src="calendarPage.js" defer></script>
+    <script src="postsPage.js" defer></script>
+    <script src="mediaPage.js" defer></script>
   </head>
   <body>
-    <!-- Fullscreen container for loading sketch -->
     <div id="loading-container"></div>
   </body>
 </html>
