@@ -33,18 +33,20 @@ function draw() {
 }
 
 function drawNav() {
-  let navHeight = 60;
+  let navHeight = 60; // Fixed height for the nav bar
   let totalItems = menuItems.length + (currentPage === "Media" ? mediaSubpages.length : 0);
   let itemWidth = width / totalItems;
 
+  // Fixed navbar color
   fill('#F8F6EE');
   noStroke();
   rect(0, 0, width, navHeight);
 
+  // Fixed text styling for nav items
   textFont(pixelFont);
   fill(0);
 
-  // Draw the main menu items
+  // Draw the main menu items (fixed style)
   for (let i = 0; i < menuItems.length; i++) {
     let label = menuItems[i];
     let x = i * itemWidth + itemWidth / 2;
