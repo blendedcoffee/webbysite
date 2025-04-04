@@ -7,6 +7,56 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   textAlign(CENTER, CENTER);
   textSize(24);
+
+  // Placeholder page draw functions
+  pages["Main"] = {
+    draw: function () {
+      fill(0);
+      text("Welcome to the Main Page!", width / 2, height / 2);
+    }
+  };
+
+  pages["Calendar"] = {
+    draw: function () {
+      fill(0);
+      text("This is the Calendar Page.", width / 2, height / 2);
+    }
+  };
+
+  pages["Posts"] = {
+    draw: function () {
+      fill(0);
+      text("This is the Posts Page.", width / 2, height / 2);
+    }
+  };
+
+  pages["Media"] = {
+    draw: function () {
+      fill(0);
+      text("Select a Media Subpage.", width / 2, height / 2);
+    }
+  };
+
+  pages["Films & TV"] = {
+    draw: function () {
+      fill(0);
+      text("This is the Films & TV Page.", width / 2, height / 2);
+    }
+  };
+
+  pages["Books"] = {
+    draw: function () {
+      fill(0);
+      text("This is the Books Page.", width / 2, height / 2);
+    }
+  };
+
+  pages["Music"] = {
+    draw: function () {
+      fill(0);
+      text("This is the Music Page.", width / 2, height / 2);
+    }
+  };
 }
 
 function draw() {
@@ -65,32 +115,6 @@ function drawNav() {
       }
 
       text(label, x, y);
-    }
-  }
-}
-
-
-  // Optional: show subpages when in Media
-  if (currentPage === "Media") {
-    for (let i = 0; i < mediaSubpages.length; i++) {
-      let label = mediaSubpages[i];
-      let x = xOffset + (menuItems.length + i) * spacing;
-      let y = 30;
-
-      if (isMouseOver(x, y, spacing, 40)) {
-        fill('#F6C1B0');
-        if (mouseIsPressed) {
-          currentPage = label;
-        }
-      } else {
-        fill(0);
-      }
-
-      push();
-      translate(x, y);
-      rotate(-HALF_PI);
-      text(label, 0, 0);
-      pop();
     }
   }
 }
