@@ -8,23 +8,22 @@ pages["Main"] = (() => {
   let frameCounter = 0;
 
   return {
-    preload() {
-      font = loadFont('assets/PixelifySans-VariableFont_wght.ttf');
-    },
     setup() {
-      cols = words.length;
-      textFont(font);
+      loadFont('assets/PixelifySans-VariableFont_wght.ttf', (loadedFont) => {
+        font = loadedFont;
+        textFont(font);
+        cols = words.length;
+      });
     },
     draw() {
-      if (frameCounter < frameHold) {
-        frameCounter++;
-        return;
-      }
-      frameCounter = 0;
+      if (!font) return;
 
+      clear();
+      background('#F8F6EE');
       blendMode(MULTIPLY);
+
       push();
-      translate(150 + .03 * width, .025 * height); // offset for menu
+      translate(150 + .03 * width, .025 * height);
       scale(0.8);
 
       for (let h = 0; h < cols; h++) {
@@ -49,7 +48,9 @@ pages["Main"] = (() => {
           endShape();
         }
       }
+
       pop();
+      blendMode(BLEND); // ← reset!
     }
   };
 })();
