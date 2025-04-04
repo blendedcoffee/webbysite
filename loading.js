@@ -36,11 +36,11 @@ const loadingSketch = (p) => {
     wordPoints.push(...rowPoints);
   }
 
-  window.addEventListener('sketchReady', () => {
-    loaded = true;
-    p.remove();
-  });
-};
+  // When ready, redirect to the sketch page
+setTimeout(() => {
+  window.location.href = "main.html"; // or whatever your sketch page is
+}, 2000); // optional delay to let the animation settle
+
 
 p.draw = () => {
   if (loaded) return;
