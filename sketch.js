@@ -37,7 +37,7 @@ function drawNav() {
   let totalItems = menuItems.length + (currentPage === "Media" ? mediaSubpages.length : 0);
   let itemWidth = width / totalItems;
 
-  fill('#FFF4B1');
+  fill('#F8F6EE');
   noStroke();
   rect(0, 0, width, navHeight);
 
