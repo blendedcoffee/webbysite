@@ -23,7 +23,6 @@ pages["Main"] = (() => {
       blendMode(MULTIPLY);
 
       push();
-      translate(150 + .03 * width, .025 * height);
       scale(0.8);
 
       for (let h = 0; h < cols; h++) {
