@@ -13,10 +13,10 @@
     <script src="sketch.js" defer></script>
 
     <!-- All individual page files -->
-    <script src="mainPage.js" defer></script>
-    <script src="calendarPage.js" defer></script>
-    <script src="postsPage.js" defer></script>
-    <script src="mediaPage.js" defer></script>
+    <script src="mainpage.js" defer></script>
+    <script src="calendarpage.js" defer></script>
+    <script src="postspage.js" defer></script>
+    <script src="mediapage.js" defer></script>
   </head>
   <body>
     <div id="loading-container"></div>
