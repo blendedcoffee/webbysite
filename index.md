@@ -45,7 +45,9 @@
   </style>
 </head>
 <body>
-  <!-- Optional HTML fallback loading screen -->
-  <div id="loading-screen">Loading...</div>
+  <div id="loading-container"></div>
+
+  <script src="loading.js" defer></script>
+  <script src="sketch.js" defer></script>
 </body>
 </html>
