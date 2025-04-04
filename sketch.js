@@ -2,13 +2,18 @@ let currentPage = "Main";
 let pages = {};
 let menuItems = ["Main", "Calendar", "Posts", "Media"];
 let mediaSubpages = ["Films & TV", "Books", "Music"];
+let pixelFont;
+
+function preload() {
+  pixelFont = loadFont('assets/PixelifySans-VariableFont_wght.ttf');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textAlign(CENTER, CENTER);
+  textFont(pixelFont);
   textSize(24);
 
-  // Call the setup of the current page, if it has one
   if (pages[currentPage] && pages[currentPage].setup) {
     pages[currentPage].setup();
   }
@@ -18,9 +23,8 @@ function draw() {
   clear();
   background('#F8F6EE');
 
-  drawNav(); // Always draw nav
+  drawNav();
 
-  // Call draw for the current page
   if (pages[currentPage] && pages[currentPage].draw) {
     pages[currentPage].draw();
   }
@@ -31,12 +35,13 @@ function drawNav() {
   let totalItems = menuItems.length + (currentPage === "Media" ? mediaSubpages.length : 0);
   let itemWidth = width / totalItems;
 
-  // Background bar
   fill('#FFF4B1');
   noStroke();
   rect(0, 0, width, navHeight);
 
-  // Top-level menu items
+  textFont(pixelFont);
+  fill(0);
+
   for (let i = 0; i < menuItems.length; i++) {
     let label = menuItems[i];
     let x = i * itemWidth + itemWidth / 2;
@@ -54,7 +59,6 @@ function drawNav() {
     text(label, x, y);
   }
 
-  // Subpages for "Media"
   if (currentPage === "Media") {
     for (let i = 0; i < mediaSubpages.length; i++) {
       let label = mediaSubpages[i];
@@ -84,7 +88,7 @@ function changePage(newPage) {
   if (newPage !== currentPage) {
     currentPage = newPage;
     if (pages[currentPage] && pages[currentPage].setup) {
-      pages[currentPage].setup(); // Call setup again if switching pages
+      pages[currentPage].setup();
     }
   }
 }
