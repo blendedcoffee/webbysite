@@ -1,35 +1,51 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zara Hussain Typography Animation</title>
-  
-  <!-- Add a link to your CSS here (if you have any custom styles) -->
-  <link rel="stylesheet" href="styles.css">
-  
-  <!-- Link to p5.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-  
-  <!-- Your custom loading screen script -->
-  <script src="loading.js"></script> <!-- If you have a separate loading.js file for the loading screen -->
+  <title>Zara Hussain</title>
 
-  <!-- Link to your custom sketch.js file -->
-  <script src="sketch.js"></script>  <!-- This is the main p5.js sketch -->
+  <!-- p5.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+  <!-- Load your loading logic first -->
+  <script src="loading.js" defer></script>
+
+  <!-- Your sketch code -->
+  <script src="sketch.js" defer></script>
+
+  <!-- Style to remove default margin and make canvas fullscreen -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #F8F6EE;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    /* Optional: fallback loading screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      z-index: 1000;
+      font-family: 'PixelifySans', sans-serif;
+      font-size: 2rem;
+      color: #222;
+    }
+  </style>
 </head>
 <body>
-  <!-- Loading screen (it will hide once the sketch is ready) -->
-  <div id="loading-screen">
-    <div id="loading-text">Loading...</div>
-  </div>
-
-  <!-- You can add other content for the page here, such as a title, about text, etc. -->
-
-  <script>
-    // Add event listener to hide the loading screen once the sketch is ready
-    window.addEventListener('sketchReady', function() {
-      document.getElementById('loading-screen').style.display = 'none'; // Hide the loading screen
-    });
-  </script>
+  <!-- Optional HTML fallback loading screen -->
+  <div id="loading-screen">Loading...</div>
 </body>
 </html>
