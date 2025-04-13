@@ -19,18 +19,24 @@ pages["Posts"] = {
         speed: random(0.001, 0.005),
         post: post
       }));
-
-      // Generate orbs
+      
+      // Generate orbs arranged in circular patterns
       lightOrbs = [];
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 50; i++) {
+        let centerX = random(width);
+        let centerY = random(height);
+        let baseRadius = random(20, 200);
+        let startAngle = random(TWO_PI);
+        let speed = random(0.001, 0.005);
+      
         lightOrbs.push({
-          x: random(width),
-          y: random(height),
-          size: random(20, 80),
-          speedX: random(-0.5, 0.5),
-          speedY: random(-0.5, 0.5),
-          baseSize: random(20, 80),
-          color: color(random(180, 255), random(100, 255), random(180, 255))
+          centerX,
+          centerY,
+          baseRadius,
+          angle: startAngle,
+          speed,
+          size: random(3, 8),
+          baseSize: random(3, 8),
         });
       }
     } catch (error) {
@@ -40,21 +46,22 @@ pages["Posts"] = {
 
   draw() {
     background(0); // dark gallery vibe
-
-    // Draw light orbs
+    
+    // Draw tiny soft-yellow light orbs orbiting invisible centers
     noStroke();
     for (let orb of lightOrbs) {
-      orb.x += orb.speedX;
-      orb.y += orb.speedY;
-
-      // Bounce off walls
-      if (orb.x < 0 || orb.x > width) orb.speedX *= -1;
-      if (orb.y < 0 || orb.y > height) orb.speedY *= -1;
-
-      let twinkle = sin(frameCount * 0.05 + orb.x * 0.01 + orb.y * 0.01) * 0.5 + 1;
-      fill(orb.color.levels[0], orb.color.levels[1], orb.color.levels[2], 100);
-      ellipse(orb.x, orb.y, orb.baseSize * twinkle);
+      let x = orb.centerX + cos(orb.angle) * orb.baseRadius;
+      let y = orb.centerY + sin(orb.angle) * orb.baseRadius;
+    
+      orb.angle += orb.speed;
+    
+      let twinkle = sin(frameCount * 0.1 + orb.angle * 10) * 0.5 + 1;
+      let glow = color(255, 248, 204, 180);  // soft yellow light
+    
+      fill(glow);
+      ellipse(x, y, orb.baseSize * twinkle);
     }
+
 
     if (this.selectedPost) {
       textAlign(CENTER, CENTER);
