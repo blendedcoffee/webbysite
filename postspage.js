@@ -20,25 +20,36 @@ pages["Posts"] = {
         post: post
       }));
       
-      // Generate orbs arranged in circular patterns
-      lightOrbs = [];
-      for (let i = 0; i < 80; i++) {
-        let centerX = random(width);
-        let centerY = random(height);
-        let baseRadius = random(20, 200);
-        let startAngle = random(TWO_PI);
-        let speed = random(0.001, 0.005);
-      
-        lightOrbs.push({
-          centerX,
-          centerY,
-          baseRadius,
-          angle: startAngle,
-          speed,
-          size: random(3, 5),
-          baseSize: random(3, 5),
+    lightOrbs = [];
+    
+    // Create multiple circular "orb systems"
+    for (let i = 0; i < 10; i++) {  // 10 separate rings
+      let centerX = random(width);
+      let centerY = random(height);
+      let baseRadius = random(100, 300);
+      let speed = random(0.0005, 0.003);
+    
+      let dots = [];
+      let numDots = 40;  // More dots for geometric look
+    
+      for (let j = 0; j < numDots; j++) {
+        let angle = map(j, 0, numDots, 0, TWO_PI);
+        dots.push({
+          angleOffset: angle,
+          size: random(2, 5)  // Tiny pinpricks
         });
       }
+    
+      lightOrbs.push({
+        centerX,
+        centerY,
+        baseRadius,
+        speed,
+        rotation: random(TWO_PI),
+        dots
+      });
+    }
+
     } catch (error) {
       console.error("Error loading blog posts:", error);
     }
@@ -46,20 +57,22 @@ pages["Posts"] = {
 
   draw() {
     background(0); // dark gallery vibe
-    
-    // Draw tiny soft-yellow light orbs orbiting invisible centers
+        
     noStroke();
-    for (let orb of lightOrbs) {
-      let x = orb.centerX + cos(orb.angle) * orb.baseRadius;
-      let y = orb.centerY + sin(orb.angle) * orb.baseRadius;
+    for (let ring of lightOrbs) {
+      ring.rotation += ring.speed;
     
-      orb.angle += orb.speed;
+      for (let dot of ring.dots) {
+        let angle = ring.rotation + dot.angleOffset;
+        let x = ring.centerX + cos(angle) * ring.baseRadius;
+        let y = ring.centerY + sin(angle) * ring.baseRadius;
     
-      let twinkle = sin(frameCount * 0.1 + orb.angle * 10) * 0.5 + 1;
-      let glow = color(255, 248, 204, 180);  // soft yellow light
+        let twinkle = sin(frameCount * 0.1 + dot.angleOffset * 8) * 0.5 + 1;
+        let glow = color(255, 248, 204, 180);  // soft warm yellow
     
-      fill(glow);
-      ellipse(x, y, orb.baseSize * twinkle);
+        fill(glow);
+        ellipse(x, y, dot.size * twinkle);
+      }
     }
 
 
