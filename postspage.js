@@ -71,16 +71,3 @@ pages["Posts"] = {
     await this.loadBlogPosts();
   }
 };
-
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  pages["Posts"].setup();
-}
-
-function draw() {
-  pages["Posts"].draw();
-}
-
-function mousePressed() {
-  pages["Posts"].mousePressed();
-}
