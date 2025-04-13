@@ -1,4 +1,3 @@
-let pages = {};
 let spinningTitles = [];
 
 pages["Posts"] = {
