@@ -112,12 +112,20 @@ pages["Posts"] = {
       this.selectedPost = null;
     } else {
       for (let title of spinningTitles) {
-        let mx = width / 2 + cos(title.angle) * title.radius;
-        let my = height / 2 + sin(title.angle) * title.radius;
-        let d = dist(mouseX, mouseY, mx, my);
-        if (d < 50) {
-          this.selectedPost = title.post;
-          break;
+        let str = title.post.title;
+        let r = title.radius;
+        let angleOffset = title.angle;
+  
+        for (let i = 0; i < str.length; i++) {
+          let charAngle = angleOffset + i * (PI / str.length) * 2;
+          let x = width / 2 + cos(charAngle) * r;
+          let y = height / 2 + sin(charAngle) * r;
+  
+          let d = dist(mouseX, mouseY, x, y);
+          if (d < 20) {  // Smaller hit radius for each letter
+            this.selectedPost = title.post;
+            return;
+          }
         }
       }
     }
