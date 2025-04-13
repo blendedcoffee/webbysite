@@ -22,7 +22,7 @@ pages["Posts"] = {
       
       // Generate orbs arranged in circular patterns
       lightOrbs = [];
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 80; i++) {
         let centerX = random(width);
         let centerY = random(height);
         let baseRadius = random(20, 200);
@@ -35,8 +35,8 @@ pages["Posts"] = {
           baseRadius,
           angle: startAngle,
           speed,
-          size: random(3, 8),
-          baseSize: random(3, 8),
+          size: random(3, 5),
+          baseSize: random(3, 5),
         });
       }
     } catch (error) {
