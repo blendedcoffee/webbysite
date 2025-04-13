@@ -1,63 +1,67 @@
-pages["Posts"] = {
-  blogPosts: [],  // Array to hold blog posts
+let pages = {};
+let spinningTitles = [];
 
-  selectedPost: null,  // To store the selected blog post
+pages["Posts"] = {
+  blogPosts: [],
+  selectedPost: null,
 
   async loadBlogPosts() {
     try {
-      // Fetch the JSON files for each blog post
       const response1 = await fetch('blog/FirstPost.json');
       const response2 = await fetch('blog/SecondPost.json');
-      // Add more posts as needed
-
-      // Convert the response into JSON
       const post1 = await response1.json();
       const post2 = await response2.json();
-      
-      // Populate the blogPosts array
       this.blogPosts = [post1, post2];
+
+      // Initialize spinning positions for each title
+      spinningTitles = this.blogPosts.map((post, i) => ({
+        angle: random(TWO_PI),
+        radius: random(100, 300),
+        speed: random(0.002, 0.008),
+        post: post
+      }));
     } catch (error) {
       console.error("Error loading blog posts:", error);
     }
   },
 
   draw() {
-    background('#F8F6EE');
-    
+    background(0);  // Dark like Otto Piene
+
     if (this.selectedPost) {
-      // If a post is selected, display its content
+      textAlign(CENTER, CENTER);
       textSize(20);
-      fill(0);
+      fill(255);
       text(this.selectedPost.content, width / 2, height / 2);
     } else {
-      // Display the list of blog post titles
+      textAlign(CENTER, CENTER);
       textSize(30);
-      fill(0);
-      text("Posts Page", width / 2, 50);  // Title of the page
-      
-      for (let i = 0; i < this.blogPosts.length; i++) {
-        let title = this.blogPosts[i].title;
-        let y = 100 + i * 60;  // Adjust vertical position of titles
-        
-        // Draw a "button" for each blog post title
-        textSize(20);
-        text(title, width / 2, y);
+      fill(255);
+      text("Posts Page", width / 2, 50);
+
+      textSize(20);
+      for (let title of spinningTitles) {
+        let x = width / 2 + cos(title.angle) * title.radius;
+        let y = height / 2 + sin(title.angle) * title.radius;
+        fill(255);
+        text(title.post.title, x, y);
+
+        title.angle += title.speed;  // Keep spinning
       }
     }
   },
 
   mousePressed() {
     if (this.selectedPost) {
-      // If a post is selected, click anywhere to go back to the list
       this.selectedPost = null;
     } else {
-      // Check if any of the titles were clicked
-      for (let i = 0; i < this.blogPosts.length; i++) {
-        let y = 100 + i * 60;
-        
-        // Check if the click is within the bounds of the title
-        if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 && mouseY > y - 20 && mouseY < y + 10) {
-          this.selectedPost = this.blogPosts[i];  // Set the clicked post as the selected one
+      for (let title of spinningTitles) {
+        let x = width / 2 + cos(title.angle) * title.radius;
+        let y = height / 2 + sin(title.angle) * title.radius;
+
+        let d = dist(mouseX, mouseY, x, y);
+        if (d < 50) {  // Click detection radius
+          this.selectedPost = title.post;
           break;
         }
       }
@@ -65,6 +69,19 @@ pages["Posts"] = {
   },
 
   async setup() {
-    await this.loadBlogPosts();  // Load blog posts when the page is set up
+    await this.loadBlogPosts();
   }
 };
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  pages["Posts"].setup();
+}
+
+function draw() {
+  pages["Posts"].draw();
+}
+
+function mousePressed() {
+  pages["Posts"].mousePressed();
+}
