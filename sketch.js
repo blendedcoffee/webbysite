@@ -97,7 +97,7 @@ function changePage(newPage) {
       pages[currentPage].setup();
     }
 
-    const container = document.getElementById('spotify-container');
+    let container = document.getElementById('spotify-container');
     if (container) {
       if (currentPage === "Music") {
         container.style.display = "block";
