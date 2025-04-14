@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const container = document.createElement('div');
+    const container = document.getElementById('spotify-container');
     container.innerHTML = `
         <iframe style="border-radius:12px"
             src="https://open.spotify.com/embed/album/3AMXFnwHWXCvNr5NCCpLZI?utm_source=generator&theme=0"
@@ -9,6 +9,4 @@ document.addEventListener('DOMContentLoaded', function () {
             loading="lazy">
         </iframe>
     `;
-    document.body.appendChild(container);
 });
-
