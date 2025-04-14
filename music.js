@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const container = document.getElementById('spotify-container');
+    let container = document.getElementById('spotify-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'spotify-container';
+        container.style.position = 'relative';
+        container.style.zIndex = '1';
+        container.style.display = 'none';
+        document.body.appendChild(container);
+    }
+
     container.innerHTML = `
         <iframe style="border-radius:12px"
             src="https://open.spotify.com/embed/album/3AMXFnwHWXCvNr5NCCpLZI?utm_source=generator&theme=0"
