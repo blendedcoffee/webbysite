@@ -96,8 +96,18 @@ function changePage(newPage) {
     if (pages[currentPage] && pages[currentPage].setup) {
       pages[currentPage].setup();
     }
+
+    const container = document.getElementById('spotify-container');
+    if (container) {
+      if (currentPage === "Music") {
+        container.style.display = "block";
+      } else {
+        container.style.display = "none";
+      }
+    }
   }
 }
+
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
