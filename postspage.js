@@ -18,7 +18,7 @@ pages["Posts"] = {
       spinningTitles = this.blogPosts.map((post, i) => ({
         angle: random(TWO_PI),
         radius: random(150, 300),
-        speed: random(0.002, 0.008),
+        speed: random(0.001, 0.004),
         post: post
       }));
 
@@ -28,7 +28,7 @@ pages["Posts"] = {
         let centerX = random(width);
         let centerY = random(height);
         let baseRadius = random(100, 300);
-        let numLayers = floor(random(1, 4));
+        let numLayers = floor(random(1, 6));
         let layers = [];
 
         for (let l = 0; l < numLayers; l++) {
